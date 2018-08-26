@@ -1,0 +1,45 @@
+﻿CREATE TABLE pessoa (
+idpessoa SERIAL NOT NULL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+telefone VARCHAR(14),
+email VARCHAR(255)
+);
+CREATE TABLE cliente (
+idpessoa INT NOT NULL PRIMARY KEY,
+rg VARCHAR(15) NOT NULL,
+cpf CHAR(11) NOT NULL,
+FOREIGN KEY (idpessoa) REFERENCES pessoa (idpessoa)
+);
+CREATE TABLE fornecedor (
+idpessoa INT NOT NULL PRIMARY KEY,
+cnpj CHAR(14) NOT NULL,
+url VARCHAR(255),
+FOREIGN KEY (idpessoa) REFERENCES pessoa (idpessoa)
+);
+CREATE TABLE movimento (
+idmov SERIAL NOT NULL PRIMARY KEY,
+dtvenda DATE NOT NULL,
+precototal DECIMAL(6,2),
+idcliente INT REFERENCES cliente (idpessoa),
+idfornecedor INT REFERENCES fornecedor (idpessoa)
+);
+
+INSERT INTO pessoa(nome,telefone,email) VALUES
+('João', '34421515', 'joão@gmail.com'),
+('maria', '34534343','maria@gmail.com');
+
+INSERT INTO cliente(idpessoa, rg, cpf) VALUES
+('1','12312312','12312312312');
+
+INSERT INTO fornecedor(idpessoa, cnpj, url) VALUES
+('2','45645645','45645645645');
+
+INSERT INTO movimento(dtvenda, precototal, idcliente, idfornecedor) VALUES /*um dos id é null*/
+('2018-08-05','4.00',1,NULL),
+('2016-05-02','6.00',NULL,2);
+
+SELECT pessoa.nome, cliente.rg, fornecedor.cnpj
+FROM cliente INNER JOIN pessoa
+ON cliente.idpessoa = pessoa.idpessoa
+INNER JOIN fornecedor
+ON pessoa.idpessoa = fornecedor.idpessoa
