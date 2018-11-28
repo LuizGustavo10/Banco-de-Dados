@@ -13,24 +13,34 @@ CREATE TABLE produto (
 
 ALTER SEQUENCE produto_idprod_seq OWNED BY produto.idprod;
 
+CREATE SEQUENCE estado_idestado_seq_1;
+
 CREATE TABLE estado (
-                idestado INTEGER NOT NULL,
+                idestado INTEGER NOT NULL DEFAULT nextval('estado_idestado_seq_1'),
                 nome VARCHAR(50) NOT NULL,
                 sigla CHAR(2) NOT NULL,
                 CONSTRAINT idestado PRIMARY KEY (idestado)
 );
 
 
+ALTER SEQUENCE estado_idestado_seq_1 OWNED BY estado.idestado;
+
+CREATE SEQUENCE cidade_idcidade_seq;
+
 CREATE TABLE cidade (
-                idcidade INTEGER NOT NULL,
+                idcidade INTEGER NOT NULL DEFAULT nextval('cidade_idcidade_seq'),
                 nome VARCHAR(50) NOT NULL,
                 idestado INTEGER NOT NULL,
                 CONSTRAINT idcidade PRIMARY KEY (idcidade)
 );
 
 
+ALTER SEQUENCE cidade_idcidade_seq OWNED BY cidade.idcidade;
+
+CREATE SEQUENCE pessoa_idpessoa_seq;
+
 CREATE TABLE pessoa (
-                idpessoa INTEGER NOT NULL,
+                idpessoa INTEGER NOT NULL DEFAULT nextval('pessoa_idpessoa_seq'),
                 nome VARCHAR(100) NOT NULL,
                 telefone VARCHAR(14),
                 endereco VARCHAR,
@@ -39,6 +49,8 @@ CREATE TABLE pessoa (
                 CONSTRAINT idpessoa PRIMARY KEY (idpessoa)
 );
 
+
+ALTER SEQUENCE pessoa_idpessoa_seq OWNED BY pessoa.idpessoa;
 
 CREATE TABLE fornecedor (
                 idPessoaFornecedor INTEGER NOT NULL,
@@ -134,4 +146,28 @@ REFERENCES movimento (idmov)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+INSERT INTO estado(nome, sigla) VALUES
+('PARANÁ','PR');
+
+INSERT INTO cidade(nome,idestado) VALUES
+('Marilena', 1);
+
+
+INSERT INTO pessoa(nome,telefone, endereco, email, idcidade) VALUES
+('João', 'rua Tal A','34421515', 'joão@gmail.com',1),
+('maria', 'rua Tal B', '34534343','maria@gmail.com',1);
+
+INSERT INTO cliente(idPessoaCliente, cpf, rg, dtNasc) VALUES
+(1,'12312312312','12312312','2000-10-01');
+
+INSERT INTO fornecedor(idpessoaFornecedor, cnpj) VALUES
+(2,'45645645');
+
+INSERT INTO movimento(dtvenda, precototal, idfornecedor, idcliente) VALUES /*um dos id é null, pois ou é cliente, ou fornecedor*/
+('2018-08-05','4.00',1,NULL),
+('2016-05-02','6.00',NULL,2);
+
+
+
 
