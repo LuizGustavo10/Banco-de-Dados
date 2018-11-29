@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 CREATE SEQUENCE produto_idprod_seq;
 
 CREATE TABLE produto (
@@ -165,9 +165,38 @@ INSERT INTO fornecedor(idpessoaFornecedor, cnpj) VALUES
 (2,'45645645');
 
 INSERT INTO movimento(dtvenda, precototal, idfornecedor, idcliente) VALUES /*um dos id é null, pois ou é cliente, ou fornecedor*/
-('2018-08-05','4.00',1,NULL),
-('2016-05-02','6.00',NULL,2);
+('2018-08-05','4.00',1,NULL), /*PRIMEIRO MOVIMENTO FOI UMA COMPRA DO FORNECEDOR*/
+('2016-05-02','6.00',NULL,2); /*SEGUNDO MOVIMENTO FOI UMA VENDA PARA CLIENTE*/
 
+INSERT INTO produto(nome,qtdeest,qtdemin,precovenda) VALUES
+('cerveja',60,20,'2.00'),
+('chiclete',70,15,'0.10');
+
+INSERT INTO itens_mov(idmov_mov,idprod_mov,qtde,preco) VALUES
+(1,1,20,'40.00'),
+(1,2,10,'1.00'),
+(2,1,2,'4.00'),
+(2,2,1,'0.10');
+
+
+
+
+
+
+
+
+
+
+
+
+/*testes de select-----------------*/
+SELECT * 
+FROM pessoa INNER JOIN cliente
+ON pessoa.idpessoa = cliente.idPessoaCliente;
+
+SELECT * 
+FROM pessoa INNER JOIN fornecedor
+ON pessoa.idpessoa = fornecedor.idPessoaFornecedor;
 
 
 
