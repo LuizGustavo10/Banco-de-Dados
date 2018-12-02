@@ -1,4 +1,5 @@
 ﻿﻿
+
 CREATE SEQUENCE public.produto_idprod_seq;
 
 CREATE TABLE public.produto (
@@ -42,8 +43,8 @@ CREATE SEQUENCE public.pessoa_idpessoa_seq;
 CREATE TABLE public.pessoa (
                 idpessoa INTEGER NOT NULL DEFAULT nextval('public.pessoa_idpessoa_seq'),
                 nome VARCHAR(100) NOT NULL,
-                telefone VARCHAR(14),
-                endereco VARCHAR,
+                telefone VARCHAR(20),
+                endereco VARCHAR(50),
                 email VARCHAR(255),
                 idcidade INTEGER NOT NULL,
                 CONSTRAINT idpessoa PRIMARY KEY (idpessoa)
@@ -54,7 +55,7 @@ ALTER SEQUENCE public.pessoa_idpessoa_seq OWNED BY public.pessoa.idpessoa;
 
 CREATE TABLE public.fornecedor (
                 idPessoaFornecedor INTEGER NOT NULL,
-                cnpj CHAR(14) NOT NULL,
+                cnpj CHAR(20) NOT NULL,
                 CONSTRAINT idpessoafornecedor PRIMARY KEY (idPessoaFornecedor)
 );
 
@@ -160,8 +161,9 @@ INSERT INTO cidade(nome,idestado) VALUES
 
 
 INSERT INTO pessoa(nome,telefone, endereco, email, idcidade) VALUES
-('Luis Franchisco', 'Rua do Irineu','34421515','lulu@luizin.com',5),
-('Franklyn Aparecido', 'Rua Groove', '34221190','frank@gmail.com',4),
+('Fornecedora Beer', 'Rua das Nações','34421515','beer@gmail.com',5),
+('Fornecedora Bebidas e Cia', 'Rua do Irineu','34421515','bebidasCia@gmail.com',5),
+('Fornecedora Diversity', 'Rua Groove', '34221190','diversity@gmail.com',4),
 ('José Amado', 'Rua do ABC','30451120', 'amador@hotmail.com',1),
 ('Ana Maria', 'Rua João da Silva', '30456711','anamaria@outlook.com',1),
 ('João Desah Parecido', 'Avenida do Caneco','31459212', 'jao123@yahoo.com',2),
@@ -185,9 +187,9 @@ INSERT INTO cliente(idPessoaCliente, cpf, rg, dtNasc) VALUES
 (10,'29612473900','239753227','1960-01-31');
 
 INSERT INTO fornecedor(idpessoaFornecedor, cnpj) VALUES
-(1,'0889305000103'),
-(2,'6945944000140'),
-(3,'88910790001605');
+(1,'43.541.228/0001-00'),
+(2,'35.763.037/0001-56'),
+(3,'30.051.110/0001-43');
 
 INSERT INTO movimento(dtvenda, idfornecedor, idcliente) VALUES /*um dos id é null, pois ou é cliente, ou fornecedor*/ 
 
@@ -265,7 +267,7 @@ INSERT INTO itens_mov(idmov_mov,idprod_mov,qtde,preco) VALUES
 (6,11,2,'3.00'),
 (6,12,2,'5.00');
 
-/*Fazer um balanço financeiro mensalmente para ter uma noção das despesas em compras com o fornecedor.*/
+/*Fazer um balanço financeiro MENSALMENTE para ter uma noção das despesas em compras com o fornecedor.*/
 SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = idPessoaFornecedor
@@ -277,7 +279,7 @@ INNER JOIN produto
 ON itens_mov.idprod_mov = produto.idprod
 WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
 
-/*Fazer um balanço financeiro mensalmente para se ter uma noção da margem de lucro.*/
+/*Fazer um balanço financeiro MENSALMENTE para se ter uma noção da margem de lucro.*/
 SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = idPessoaCliente
@@ -289,7 +291,7 @@ INNER JOIN produto
 ON itens_mov.idprod_mov = produto.idprod
 WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
 
-/*Fazer um balanço financeiro diariamente para ter um controle sobre as receitas*/
+/*Fazer um balanço financeiro DIARIAMENTE para ter um controle sobre as receitas*/
 SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = idPessoaCliente
@@ -302,7 +304,7 @@ ON itens_mov.idprod_mov = produto.idprod
 WHERE dtvenda BETWEEN '2018-11-25' AND '2018-11-25';
 
 
-/*Fazer um balanço financeiro diariamente para ter um controle sobre as despesas*/
+/*Fazer um balanço financeiro DIARIAMENTE para ter um controle sobre as despesas*/
 SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = idPessoaFornecedor
@@ -349,7 +351,7 @@ WHERE nome LIKE '%Br%';
 SELECT * 
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
-WHERE pessoa.nome LIKE '%A%';
+WHERE pessoa.nome LIKE '%For%';
 
 /*Permitir fazer a busca de clientes pelo nome, para possíveis alterações futuras*/
 SELECT * 
@@ -357,21 +359,3 @@ FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = cliente.idPessoaCliente
 WHERE pessoa.nome LIKE '%a%';
 
-
-
-
-
-
-SELECT SUM(qtdeest*2) AS "Quantidade em Estoque"
-FROM produto;
-
-
-
-select * from produto
-
-
-
-/*testes de select-----------------*/
-
-
-SELECT produto.nome, produto.quantidade 
