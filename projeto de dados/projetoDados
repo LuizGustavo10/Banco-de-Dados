@@ -318,9 +318,6 @@
 <td class="tdTableDefinition">dtvenda</td><td class="tdTableDefinition">dtvenda</td><td class="tdTableDefinition">DATE</td><td class="tdTableDefinition" nowrap></td><td class="tdTableDefinition" nowrap>NOT NULL</td>
 </tr>
 <tr valign="top">
-<td class="tdTableDefinition">precototal</td><td class="tdTableDefinition">precototal</td><td class="tdTableDefinition">DECIMAL(6,2)</td><td class="tdTableDefinition" nowrap></td><td class="tdTableDefinition" nowrap></td>
-</tr>
-<tr valign="top">
 <td class="tdTableDefinition">idfornecedor
                 &nbsp;(<a href="#cliente">FK</a>)
               </td><td class="tdTableDefinition">idfornecedor</td><td class="tdTableDefinition">INTEGER</td><td class="tdTableDefinition" nowrap></td><td class="tdTableDefinition" nowrap></td>

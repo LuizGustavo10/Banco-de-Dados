@@ -160,17 +160,29 @@ INSERT INTO cidade(nome,idestado) VALUES
 
 
 INSERT INTO pessoa(nome,telefone, endereco, email, idcidade) VALUES
-('FORNECEDORA 1', 'rua Tal A','34421515', 'joão@gmail.com',5), /*colocar pessoas, isso é só para teste */
-('FORNECEDORA 2', 'rua Tal B', '34534343','maria@gmail.com',4),
-('FORNECEDORA 3', 'rua Tal A','34421515', 'joão@gmail.com',1), /*colocar pessoas, isso é só para teste */
-('maria2', 'rua Tal B', '34534343','maria@gmail.com',1),
-('João3', 'rua Tal A','34421515', 'joão@gmail.com',2), /*colocar pessoas, isso é só para teste */
-('maria3', 'rua Tal B', '34534343','maria@gmail.com',3);
+('Luis Franchisco', 'Rua do Irineu','34421515','lulu@luizin.com',5),
+('Franklyn Aparecido', 'Rua Groove', '34221190','frank@gmail.com',4),
+('José Amado', 'Rua do ABC','30451120', 'amador@hotmail.com',1),
+('Ana Maria', 'Rua João da Silva', '30456711','anamaria@outlook.com',1),
+('João Desah Parecido', 'Avenida do Caneco','31459212', 'jao123@yahoo.com',2),
+('Bruce Li', 'Rodovia BR 376', '34239763','libruce@hotmail.com',3),
+('Josefina Lima', 'Rua Almirante', '34231121', 'jose@gmail.com', 1),
+('Abrilina Décima', 'Rua do Nunca','34228712','abril1na@gmail.com',4),
+('Amin Amou', 'Avenida Parigot', '31458231','amado@yahoo.com.br', 2),
+('Jacinto Leite','Rua do Amanhã', '34239812','jacin123@gmail.com',1),
+('Manoel Igualdade','Rua Amampá', '34231212','mano@gmail.com',1); /*Arrumar----------------------*/
 
-INSERT INTO cliente(idPessoaCliente, cpf, rg, dtNasc) VALUES /*colocar clientes, isso é só para teste */
-(4,'12312312312','12312312','2000-10-01'),
-(5,'45612312312','45612312','2002-10-01'), /*colocar clientes, isso é só para teste */
-(6,'78912312312','78912312','1999-10-01');
+INSERT INTO cliente(idPessoaCliente, cpf, rg, dtNasc) VALUES
+(1,'81459143027','448806228','1998-12-11'),
+(2,'94202065050','267840858','1982-05-10'),
+(3,'16160812017','378112247','1970-04-09'),
+(4,'02765336075','103573355','1998-11-03'),
+(5,'53300858020','497873643','1995-01-02'),
+(6,'51583614010','225069684','1994-02-06'),
+(7,'49924003020','224492731','1930-11-05'),
+(8,'98962117010','470223832','2002-04-12'),
+(9,'97809538098','419428884','1940-12-12'),
+(10,'29612473900','239753227','1960-01-31');
 
 INSERT INTO fornecedor(idpessoaFornecedor, cnpj) VALUES
 (1,'0889305000103'),
@@ -253,8 +265,59 @@ INSERT INTO itens_mov(idmov_mov,idprod_mov,qtde,preco) VALUES
 (6,11,2,'3.00'),
 (6,12,2,'5.00');
 
-/*Relação de todos os clientes*/
-SELECT pessoa.nome, movimento.dtvenda, itens_mov.preco, itens_mov.qtde, produto.nome
+/*Fazer um balanço financeiro mensalmente para ter uma noção das despesas em compras com o fornecedor.*/
+SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
+FROM pessoa INNER JOIN fornecedor
+ON pessoa.idpessoa = idPessoaFornecedor
+INNER JOIN movimento
+ON idPessoaFornecedor = idmov
+INNER JOIN itens_mov
+ON movimento.idmov = itens_mov.idmov_mov
+INNER JOIN produto
+ON itens_mov.idprod_mov = produto.idprod
+WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
+
+/*Fazer um balanço financeiro mensalmente para se ter uma noção da margem de lucro.*/
+SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
+FROM pessoa INNER JOIN cliente
+ON pessoa.idpessoa = idPessoaCliente
+INNER JOIN movimento
+ON idPessoaCliente = idmov
+INNER JOIN itens_mov
+ON movimento.idmov = itens_mov.idmov_mov
+INNER JOIN produto
+ON itens_mov.idprod_mov = produto.idprod
+WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
+
+/*Fazer um balanço financeiro diariamente para ter um controle sobre as receitas*/
+SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
+FROM pessoa INNER JOIN cliente
+ON pessoa.idpessoa = idPessoaCliente
+INNER JOIN movimento
+ON idPessoaCliente = idmov
+INNER JOIN itens_mov
+ON movimento.idmov = itens_mov.idmov_mov
+INNER JOIN produto
+ON itens_mov.idprod_mov = produto.idprod
+WHERE dtvenda BETWEEN '2018-11-25' AND '2018-11-25';
+
+
+/*Fazer um balanço financeiro diariamente para ter um controle sobre as despesas*/
+SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
+FROM pessoa INNER JOIN fornecedor
+ON pessoa.idpessoa = idPessoaFornecedor
+INNER JOIN movimento
+ON idPessoaFornecedor = idmov
+INNER JOIN itens_mov
+ON movimento.idmov = itens_mov.idmov_mov
+INNER JOIN produto
+ON itens_mov.idprod_mov = produto.idprod
+WHERE dtvenda BETWEEN '2018-11-25' AND '2018-11-25';
+
+
+
+/*Relação de todos os clientes -vendas- histórico*/
+SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = idPessoaCliente
 INNER JOIN movimento
@@ -264,8 +327,8 @@ ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
 ON itens_mov.idprod_mov = produto.idprod;
 
-/*Relação de todos os Fornecedores*/
-SELECT pessoa.nome, movimento.dtvenda, itens_mov.preco, itens_mov.qtde, produto.nome
+/*Relação de todos os Fornecedores -Compras- histórico*/
+SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = idPessoaFornecedor
 INNER JOIN movimento
@@ -275,8 +338,32 @@ ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
 ON itens_mov.idprod_mov = produto.idprod;
 
+/*Permitir a busca pela quantidade do produto em estoque, para se ter noção dos produtos armazenados*/
+SELECT nome"Nome do Produto", qtdeEst"Quantidade em estoque" FROM produto;
+
+/*Viabilizar a consulta por um determinado produto, para possíveis alterações futuras. */
+SELECT nome"Nome do Produto", qtdeest"Quantidade em estoque", qtdemin"Quantidade Mínima",precovenda"Preço" FROM produto
+WHERE nome LIKE '%Br%'; 
+
+/*Permitir fazer a busca de fornecedores pelo nome, para possíveis alterações futuras*/
+SELECT * 
+FROM pessoa INNER JOIN fornecedor
+ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
+WHERE pessoa.nome LIKE '%A%';
+
+/*Permitir fazer a busca de clientes pelo nome, para possíveis alterações futuras*/
+SELECT * 
+FROM pessoa INNER JOIN cliente
+ON pessoa.idpessoa = cliente.idPessoaCliente
+WHERE pessoa.nome LIKE '%a%';
 
 
+
+
+
+
+SELECT SUM(qtdeest*2) AS "Quantidade em Estoque"
+FROM produto;
 
 
 
@@ -285,12 +372,6 @@ select * from produto
 
 
 /*testes de select-----------------*/
-SELECT * 
-FROM pessoa INNER JOIN cliente
-ON pessoa.idpessoa = cliente.idPessoaCliente;
 
-SELECT * 
-FROM pessoa INNER JOIN fornecedor
-ON pessoa.idpessoa = fornecedor.idPessoaFornecedor;
 
 SELECT produto.nome, produto.quantidade 
