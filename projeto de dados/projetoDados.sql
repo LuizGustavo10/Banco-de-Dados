@@ -161,9 +161,9 @@ INSERT INTO cidade(nome,idestado) VALUES
 
 
 INSERT INTO pessoa(nome,telefone, endereco, email, idcidade) VALUES
-('Fornecedora Beer', 'Rua das Nações','34421515','beer@gmail.com',5),
-('Fornecedora Bebidas e Cia', 'Rua do Irineu','34421515','bebidasCia@gmail.com',5),
-('Fornecedora Diversity', 'Rua Groove', '34221190','diversity@gmail.com',4),
+('Fornecedora Ambev', 'Rua das Nações','34421515','beer@gmail.com',5),
+('Fornecedora Adega Brasil', 'Rua do Irineu','34421515','bebidasCia@gmail.com',5),
+('Fornecedora Spaipa', 'Rua Groove', '34221190','diversity@gmail.com',4),
 ('José Amado', 'Rua do ABC','30451120', 'amador@hotmail.com',1),
 ('Ana Maria', 'Rua João da Silva', '30456711','anamaria@outlook.com',1),
 ('João Desah Parecido', 'Avenida do Caneco','31459212', 'jao123@yahoo.com',2),
@@ -207,59 +207,60 @@ INSERT INTO movimento(dtvenda, idfornecedor, idcliente) VALUES /*um dos id é nu
 ('2018-11-04',6,NULL);
  
 
+
 INSERT INTO produto (nome, qtdeest, qtdemin, precovenda)
-VALUES ('Skol 300 Ml', 4, 1, 3.00),
-       ('Skol 350 Ml', 4, 1, 3.50),
-       ('Skol 600 Ml', 6, 2, 6.50),
-       ('Skol 650 Ml', 6, 2, 7.50),
-       ('Skol 1 L', 4, 1, 7.00),
-       ('Brahma 300 Ml', 4, 1, 3.00),
-       ('Brahma 350 Ml', 4, 1, 3.00),
-       ('Brahma 600 ML', 6, 2, 6.50),
-       ('Brahma 650 Ml', 6, 2, 7.50),
-       ('Brahma 1 L', 4, 1, 10.00),
-       ('Subzero 350 Ml', 3, 1, 3.00),
-       ('Subzero 600 Ml', 5, 1, 5.00),
-       ('Subzero 650 Ml', 5, 1, 6.00),
-       ('Subzero 1 L', 3, 1, 6.50),
-       ('Brahma Extra 600 Ml', 2, 1, 6.50),
-       ('Brahma Extra 650 Ml', 2, 1, 7.50),
-       ('Antartica Original 600 Ml', 2, 1, 8.00),
-       ('Antartica Original 650 Ml', 2, 1, 9.00),
-       ('Budweiser 600 Ml', 2, 1, 6.50),
-       ('Budweiser 650 Ml', 2, 1, 7.50),
-       ('Guaraná Antartica 2 L', 2, 1, 7.00),
-       ('Guaraná Antartica 350 Ml', 2, 1, 3.00),
-       ('Guaraná Antartica 290 Ml', 2, 1, 3.00),
-       ('Coca Cola 290 Ml', 3, 1, 3.00),
-       ('Coca Cola 350 Ml', 2, 1, 3.50),
-       ('Coca Cola 600 Ml', 2, 1, 4.50),
-       ('Coca Cola 1 L', 2, 1, 5.00),
-       ('Coca Cola 2 L', 2, 1, 8.00),
-       ('Tubaina Funada 2 L', 2, 1, 6.00),
-       ('Tubaina Funada 600 Ml', 2, 1, 3.00),
-       ('Sodinha', 3, 1, 2.00),
-       ('Guaraná Funada 2 L', 2, 1, 6.00),
-       ('Fanta 290 Ml', 3, 1, 3.00),
-       ('Fanta 350 Ml', 2, 1, 3.50),
-       ('Fanta 2 L', 2, 1, 7.00),
-       ('Agua Tonica 290 Ml', 2, 1, 3.00),
-       ('Brahma Sem Álcool 350 Ml', 1, 1, 4.00),
-       ('Brahma Sem Álcool 350 Ml', 1, 1, 5.00),
-       ('H2OH Limoneto 500 Ml', 2, 1, 4.50),
-       ('H2OH Limoneto 500 Ml', 2, 1, 5.50),
+VALUES ('Skol 300 Ml', 96, 24, 3.00),
+       ('Skol 350 Ml', 48, 12, 3.50),
+       ('Skol 600 Ml', 144, 48, 6.50),
+       ('Skol 600 Ml', 144, 48, 7.50),
+       ('Skol 1 L', 48, 12, 7.00),
+       ('Brahma 300 Ml', 96, 24, 3.00),
+       ('Brahma 350 Ml', 48, 12, 3.00),
+       ('Brahma 600 ML', 144, 48, 6.50),
+       ('Brahma 600 Ml', 144, 48, 7.50),
+       ('Brahma 1 L', 48, 12, 10.00),
+       ('Subzero 350 Ml', 36, 12, 3.00),
+       ('Subzero 600 Ml', 120, 24, 5.00),
+       ('Subzero 600 Ml', 120, 24, 6.00),
+       ('Subzero 1 L', 36, 12, 6.50),
+       ('Brahma Extra 600 Ml', 48, 24, 6.50),
+       ('Brahma Extra 600 Ml', 48, 24, 7.50),
+       ('Antartica Original 600 Ml', 48, 24, 8.00),
+       ('Antartica Original 600 Ml', 48, 24, 9.00),
+       ('Budweiser 600 Ml', 48, 24, 6.50),
+       ('Budweiser 600 Ml', 48, 24, 7.50),
+       ('Guaraná Antartica 2 L', 12, 6, 7.00),
+       ('Guaraná Antartica 350 Ml', 12, 6, 3.00),
+       ('Guaraná Antartica 290 Ml', 48, 24, 3.00),
+       ('Coca Cola 290 Ml', 72, 24, 3.00),
+       ('Coca Cola 350 Ml', 24, 2, 3.50),
+       ('Coca Cola 600 Ml', 24, 12, 4.50),
+       ('Coca Cola 1 L', 24, 12, 5.00),
+       ('Coca Cola 2 L', 12, 6, 8.00),
+       ('Tubaina Funada 2 L', 12, 6, 6.00),
+       ('Tubaina Funada 600 Ml', 48, 24, 3.00),
+       ('Sodinha', 72, 24, 2.00),
+       ('Guaraná Funada 2 L', 12, 6, 6.00),
+       ('Fanta 290 Ml', 72, 24, 3.00),
+       ('Fanta 350 Ml', 24, 12, 3.50),
+       ('Fanta 2 L', 12, 6, 7.00),
+       ('Agua Tonica 290 Ml', 48, 24, 3.00),
+       ('Brahma Sem Álcool 350 Ml', 20, 2, 4.00),
+       ('Brahma Sem Álcool 350 Ml', 20, 2, 5.00),
+       ('H2OH Limoneto 500 Ml', 16, 3, 4.50),
+       ('H2OH Limoneto 500 Ml', 16, 3, 5.50),
        ('Dose de Pinga', 10, 2, 1.50),
-       ('Paçoca', 1, 1, 0.50),
-       ('Canudinho Doce de Leite', 1, 1, 0.50),
-       ('Amendoim Salgado Pacote', 1, 1, 2.00);
+       ('Paçoca', 30, 2, 0.50),
+       ('Canudinho Doce de Leite', 30, 2, 0.50),
+       ('Amendoim Salgado Pacote', 24, 2, 2.00);
 
 INSERT INTO itens_mov(idmov_mov,idprod_mov,qtde,preco) VALUES
-(1,1,5,'3.00'), /*Atenção repita o preço do produto, pois ficará no histórico, a tabela produto pode ter seus preços alterados*/
-(1,2,4,'3.50'),
-(2,3,4,'6.50'),
-(2,4,7,'7.50'),
-(3,5,8,'7.00'),
-(3,6,9,'3.00'),
+(1,1,20,'3.00'), /*Atenção repita o preço do produto, pois ficará no histórico, a tabela produto pode ter seus preços alterados*/
+(1,2,10,'3.50'),
+(2,3,20,'6.50'),
+(2,4,30,'7.50'),
+(3,5,30,'7.00'),
+(3,6,20,'3.00'),
 (4,7,2,'3.00'),
 (4,8,2,'6.50'),
 (5,9,2,'7.50'),
@@ -348,14 +349,22 @@ SELECT nome"Nome do Produto", qtdeest"Quantidade em estoque", qtdemin"Quantidade
 WHERE nome LIKE '%Br%'; 
 
 /*Permitir fazer a busca de fornecedores pelo nome, para possíveis alterações futuras*/
-SELECT * 
+SELECT pessoa.nome"Nome da Fornecedora",pessoa.telefone"Telefone",pessoa.endereco"Endereço",pessoa.email"Email",fornecedor.cnpj"CNPJ",cidade.nome"Cidade",estado.nome"Estado"
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
+INNER JOIN cidade
+ON pessoa.idpessoa = cidade.idcidade
+INNER JOIN estado
+ON estado.idestado = cidade.idestado
 WHERE pessoa.nome LIKE '%For%';
 
 /*Permitir fazer a busca de clientes pelo nome, para possíveis alterações futuras*/
-SELECT * 
+SELECT pessoa.nome"Nome da Pessoa",pessoa.telefone"Telefone",pessoa.endereco"Endereço",pessoa.email"Email", cliente.cpf"CPF", cliente.rg"RG",cliente.dtNasc"Data de Nasc",cidade.nome"Cidade",estado.nome"Estado"
 FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = cliente.idPessoaCliente
+INNER JOIN cidade
+ON pessoa.idpessoa = cidade.idcidade
+INNER JOIN estado
+ON estado.idestado = cidade.idestado
 WHERE pessoa.nome LIKE '%a%';
 
