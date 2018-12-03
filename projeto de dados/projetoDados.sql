@@ -175,16 +175,15 @@ INSERT INTO pessoa(nome,telefone, endereco, email, idcidade) VALUES
 ('Manoel Igualdade','Rua Amampá', '34231212','mano@gmail.com',1); /*Arrumar----------------------*/
 
 INSERT INTO cliente(idPessoaCliente, cpf, rg, dtNasc) VALUES
-(1,'81459143027','448806228','1998-12-11'),
-(2,'94202065050','267840858','1982-05-10'),
-(3,'16160812017','378112247','1970-04-09'),
-(4,'02765336075','103573355','1998-11-03'),
-(5,'53300858020','497873643','1995-01-02'),
-(6,'51583614010','225069684','1994-02-06'),
-(7,'49924003020','224492731','1930-11-05'),
-(8,'98962117010','470223832','2002-04-12'),
-(9,'97809538098','419428884','1940-12-12'),
-(10,'29612473900','239753227','1960-01-31');
+(4,'81459143027','448806228','1998-12-11'),
+(5,'94202065050','267840858','1982-05-10'),
+(6,'16160812017','378112247','1970-04-09'),
+(7,'02765336075','103573355','1998-11-03'),
+(8,'53300858020','497873643','1995-01-02'),
+(9,'51583614010','225069684','1994-02-06'),
+(10,'49924003020','224492731','1930-11-05'),
+(11,'98962117010','470223832','2002-04-12'),
+(12,'97809538098','419428884','1940-12-12');
 
 INSERT INTO fornecedor(idpessoaFornecedor, cnpj) VALUES
 (1,'43.541.228/0001-00'),
@@ -212,23 +211,23 @@ INSERT INTO produto (nome, qtdeest, qtdemin, precovenda)
 VALUES ('Skol 300 Ml', 96, 24, 3.00),
        ('Skol 350 Ml', 48, 12, 3.50),
        ('Skol 600 Ml', 144, 48, 6.50),
-       ('Skol 600 Ml', 144, 48, 7.50),
+       ('Skol 650 Ml', 144, 48, 7.50),
        ('Skol 1 L', 48, 12, 7.00),
        ('Brahma 300 Ml', 96, 24, 3.00),
        ('Brahma 350 Ml', 48, 12, 3.00),
        ('Brahma 600 ML', 144, 48, 6.50),
-       ('Brahma 600 Ml', 144, 48, 7.50),
+       ('Brahma 650 Ml', 144, 48, 7.50),
        ('Brahma 1 L', 48, 12, 10.00),
        ('Subzero 350 Ml', 36, 12, 3.00),
        ('Subzero 600 Ml', 120, 24, 5.00),
-       ('Subzero 600 Ml', 120, 24, 6.00),
+       ('Subzero 650 Ml', 120, 24, 6.00),
        ('Subzero 1 L', 36, 12, 6.50),
        ('Brahma Extra 600 Ml', 48, 24, 6.50),
-       ('Brahma Extra 600 Ml', 48, 24, 7.50),
+       ('Brahma Extra 650 Ml', 48, 24, 7.50),
        ('Antartica Original 600 Ml', 48, 24, 8.00),
-       ('Antartica Original 600 Ml', 48, 24, 9.00),
+       ('Antartica Original 650 Ml', 48, 24, 9.00),
        ('Budweiser 600 Ml', 48, 24, 6.50),
-       ('Budweiser 600 Ml', 48, 24, 7.50),
+       ('Budweiser 650 Ml', 48, 24, 7.50),
        ('Guaraná Antartica 2 L', 12, 6, 7.00),
        ('Guaraná Antartica 350 Ml', 12, 6, 3.00),
        ('Guaraná Antartica 290 Ml', 48, 24, 3.00),
@@ -248,7 +247,7 @@ VALUES ('Skol 300 Ml', 96, 24, 3.00),
        ('Brahma Sem Álcool 350 Ml', 20, 2, 4.00),
        ('Brahma Sem Álcool 350 Ml', 20, 2, 5.00),
        ('H2OH Limoneto 500 Ml', 16, 3, 4.50),
-       ('H2OH Limoneto 500 Ml', 16, 3, 5.50),
+       ('H2OH Limoneto 550 Ml', 16, 3, 5.50),
        ('Dose de Pinga', 10, 2, 1.50),
        ('Paçoca', 30, 2, 0.50),
        ('Canudinho Doce de Leite', 30, 2, 0.50),
@@ -271,9 +270,9 @@ INSERT INTO itens_mov(idmov_mov,idprod_mov,qtde,preco) VALUES
 /*Fazer um balanço financeiro MENSALMENTE para ter uma noção das despesas em compras com o fornecedor.*/
 SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
-ON pessoa.idpessoa = idPessoaFornecedor
+ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
 INNER JOIN movimento
-ON idPessoaFornecedor = idmov
+ON fornecedor.idPessoaFornecedor = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -283,9 +282,9 @@ WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
 /*Fazer um balanço financeiro MENSALMENTE para se ter uma noção da margem de lucro.*/
 SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
-ON pessoa.idpessoa = idPessoaCliente
+ON pessoa.idpessoa = cliente.idPessoaCliente
 INNER JOIN movimento
-ON idPessoaCliente = idmov
+ON cliente.idPessoaCliente = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -295,9 +294,9 @@ WHERE dtvenda BETWEEN '2018-11-01' AND '2018-11-30';
 /*Fazer um balanço financeiro DIARIAMENTE para ter um controle sobre as receitas*/
 SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
-ON pessoa.idpessoa = idPessoaCliente
+ON pessoa.idpessoa = cliente.idPessoaCliente
 INNER JOIN movimento
-ON idPessoaCliente = idmov
+ON cliente.idPessoaCliente = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -308,9 +307,9 @@ WHERE dtvenda BETWEEN '2018-11-25' AND '2018-11-25';
 /*Fazer um balanço financeiro DIARIAMENTE para ter um controle sobre as despesas*/
 SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
-ON pessoa.idpessoa = idPessoaFornecedor
+ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
 INNER JOIN movimento
-ON idPessoaFornecedor = idmov
+ON fornecedor.idPessoaFornecedor = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -322,9 +321,9 @@ WHERE dtvenda BETWEEN '2018-11-25' AND '2018-11-25';
 /*Relação de todos os clientes -vendas- histórico*/
 SELECT pessoa.nome"Nome do Cliente", movimento.dtvenda"Data da Venda", (itens_mov.preco*qtde)"Preço", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN cliente
-ON pessoa.idpessoa = idPessoaCliente
+ON pessoa.idpessoa = cliente.idPessoaCliente
 INNER JOIN movimento
-ON idPessoaCliente = idmov
+ON cliente.idPessoaCliente = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -333,9 +332,9 @@ ON itens_mov.idprod_mov = produto.idprod;
 /*Relação de todos os Fornecedores -Compras- histórico*/
 SELECT pessoa.nome"Nome da Fornecedora", movimento.dtvenda"Data da Compra", (itens_mov.preco*qtde)"Preço Total", itens_mov.qtde"Quantidade", produto.nome"Nome do Produto"
 FROM pessoa INNER JOIN fornecedor
-ON pessoa.idpessoa = idPessoaFornecedor
+ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
 INNER JOIN movimento
-ON idPessoaFornecedor = idmov
+ON fornecedor.idPessoaFornecedor = movimento.idmov
 INNER JOIN itens_mov
 ON movimento.idmov = itens_mov.idmov_mov
 INNER JOIN produto
@@ -353,7 +352,7 @@ SELECT pessoa.nome"Nome da Fornecedora",pessoa.telefone"Telefone",pessoa.enderec
 FROM pessoa INNER JOIN fornecedor
 ON pessoa.idpessoa = fornecedor.idPessoaFornecedor
 INNER JOIN cidade
-ON pessoa.idpessoa = cidade.idcidade
+ON pessoa.idcidade = cidade.idcidade
 INNER JOIN estado
 ON estado.idestado = cidade.idestado
 WHERE pessoa.nome LIKE '%For%';
@@ -363,7 +362,7 @@ SELECT pessoa.nome"Nome da Pessoa",pessoa.telefone"Telefone",pessoa.endereco"End
 FROM pessoa INNER JOIN cliente
 ON pessoa.idpessoa = cliente.idPessoaCliente
 INNER JOIN cidade
-ON pessoa.idpessoa = cidade.idcidade
+ON pessoa.idcidade = cidade.idcidade
 INNER JOIN estado
 ON estado.idestado = cidade.idestado
 WHERE pessoa.nome LIKE '%a%';
